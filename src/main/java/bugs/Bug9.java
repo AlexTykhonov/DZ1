@@ -8,7 +8,7 @@ package bugs;
  * <p>
  * баг в том что программа считает некорректно;
  * необходимо пофиксить и объяснить
- *
+ * <p>
  * дополнительные ресурсы http://developer.alexanderklimov.ru/android/java/types.php#char обрати внимание что char при взятии его как число дает тебе код переменной в таблице Unicode
  * если у тебя винда
  * нажми Пуск -> charmap и увидишь все символы и соответствующие им числа в 16 системе счисления;
@@ -22,11 +22,20 @@ public class Bug9 {
         String numberAsString = "5234";
         int sum = 0;
 
+//        for (int i = 0; i < numberAsString.length(); i++) {
+//            char strElement = numberAsString.charAt(0);
+//            sum += strElement;
+//        }
+
         for (int i = 0; i < numberAsString.length(); i++) {
-            char strElement = numberAsString.charAt(0);
-            sum += strElement;
+            sum+= Integer.parseInt(Character.toString(numberAsString.charAt(i)));
+        //сумма = сумма+целое из строки(символ превращаем в строку(а сам символ берем из строки, а именно "i-тый" символ))
         }
 
         System.out.println("Sum = " + sum);
     }
 }
+
+//такой результат мы получаем потому что в цикле изначально 4 раза (по длине строки) принималось значение  decimal символа "5", которое
+// равно 53. 53 сложили 4 раза - получили 214. В общем неверное значение неверно себя 4 раза суммировало. Пофиксим.
+// вышло сложно.
